@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!-- 启用spring mvc 注解 -->
+    <!-- <mvc:annotation-driven/> -->
+    <!-- 把标记了@Controller注解的类转换为bean -->
+    <context:component-scan base-package="com.scx.applet.controller" use-default-filters="false">
+        <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+    </context:component-scan>
+
+    <!-- 定时任务配置 scheduler 方式 注解 暂时不支持动态更新 -->
+    <context:component-scan base-package="com.scx.applet.timetask"/>
+    <task:executor id="executor" pool-size="5" />
+    <task:scheduler id="scheduler" pool-size="10" />
+    <!--<task:annotation-driven/>-->
+    <task:annotation-driven executor="executor" scheduler="scheduler" />
+
+    <!-- 开启spring mvc注解支持 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                 <property name="supportedMediaTypes">
+                    <list>    
+                        <value>text/html;charset=UTF-8</value>
+                    </list>    
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+
+    <!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/page/"
+          p:suffix=".jsp"/>
+
+    <!--上传配置-->
+    <!--<bean id="multipartResolver"-->
+    <!--class="org.springframework.web.multipart.commons.CommonsMultipartResolver"-->
+    <!--p:defaultEncoding="utf-8"/>-->
+
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<mvc:exclude-mapping path="/user/getUnReadNum.do"/>-->
+            <!--<mvc:exclude-mapping path="/user/login.do"/>-->
+            <!--<mvc:exclude-mapping path="/user/prompt.do"/>-->
+            <!--<mvc:exclude-mapping path="/version/*.do"/>-->
+            <!--<bean class="com.scx.interceptor.CommonInterceptor"></bean>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
+
+</beans>
