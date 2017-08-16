@@ -29,13 +29,17 @@ public class HeBeiTraffic {
     Pattern dateP = Pattern.compile("(?<=【).*(?=.0】)");
     Pattern typeP = Pattern.compile("(?<=因\\().*(?=\\))");
 
+    private static String result;
+    private static Document document;
+    private static Element scrollDiv;
+
     @Scheduled(cron = "0 0/5 7-23 * * ?")
     public void getInfo() throws IOException {
         HttpClientUtil client = new HttpClientUtil();
         String url = "http://www.hb96122.com/indexAction.do?method=index";
-        String result = client.getResult(url, "GET");
-        Document document = Jsoup.parse(result);
-        Element scrollDiv = document.getElementById("scrollDiv");
+        result = client.getResult(url, "GET");
+        document = Jsoup.parse(result);
+        scrollDiv = document.getElementById("scrollDiv");
         if (scrollDiv == null) {
             result = client.getResult(url, "GET");
             document = Jsoup.parse(result);

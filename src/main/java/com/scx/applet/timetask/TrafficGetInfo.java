@@ -26,13 +26,17 @@ public class TrafficGetInfo {
     @Autowired
     private TrafficRepository trafficRepository;
 
+    private static String result;
+    private static Document document;
+    private static Elements paging;
+
     @Scheduled(cron = "0 0/5 7-23 * * ?")
     public void getInfo() throws IOException {
         HttpClientUtil httpClient = new HttpClientUtil();
         String url = "http://www.sxgajj.gov.cn/web/index.php/map/index.html";
-        String result = httpClient.getResult(url, "get");
-        Document document = Jsoup.parse(result);
-        Elements paging = document.getElementsByClass("paging");
+        result = httpClient.getResult(url, "get");
+        document = Jsoup.parse(result);
+        paging = document.getElementsByClass("paging");
         if (paging.size() <= 0) {
             log.info("====山西高速==数据错误=======");
             return;

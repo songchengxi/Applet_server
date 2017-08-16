@@ -3,6 +3,7 @@ package com.scx.applet.controller;
 import com.scx.applet.dao.TrafficDao;
 import com.scx.applet.model.Traffic;
 import com.scx.applet.repository.TrafficRepository;
+import com.scx.util.FormatDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +17,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.text.ParseException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,7 +54,7 @@ public class TrafficController {
      */
     @PostMapping("/findByPage")
     @ResponseBody
-    public Page<Traffic> findByPage(int page, String city) {
+    public Page<Traffic> findByPage(int page, String city) throws ParseException {
         Pageable pageable = new PageRequest(page, 10, new Sort(Sort.Direction.DESC, "time"));
         Specification<Traffic> spec = new Specification<Traffic>() {
             @Override
@@ -59,7 +62,13 @@ public class TrafficController {
                 return query.where(cb.equal(root.get("city").as(String.class), "14")).getRestriction();
             }
         };
-        return trafficRepository.findAll(spec, pageable);
+
+        Page<Traffic> all = trafficRepository.findAll(spec, pageable);
+        List<Traffic> content = all.getContent();
+        for (Traffic t : content) {
+            t.setTime(FormatDate.fromToday(t.getTime()));
+        }
+        return all;
     }
 
     /**

@@ -161,7 +161,7 @@
     </dependencies>
 
     <build>
-        <finalName>applet</finalName>
+        <finalName>wechat</finalName>
         <!-- mvn指定版本 -->
         <plugins>
             <plugin>
