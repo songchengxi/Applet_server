@@ -54,12 +54,12 @@ public class TrafficController {
      */
     @PostMapping("/findByPage")
     @ResponseBody
-    public Page<Traffic> findByPage(int page, String city) throws ParseException {
+    public Page<Traffic> findByPage(int page, final String cityId) throws ParseException {
         Pageable pageable = new PageRequest(page, 10, new Sort(Sort.Direction.DESC, "time"));
         Specification<Traffic> spec = new Specification<Traffic>() {
             @Override
             public Predicate toPredicate(Root<Traffic> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return query.where(cb.equal(root.get("city").as(String.class), "14")).getRestriction();
+                return query.where(cb.equal(root.get("city").as(String.class), cityId)).getRestriction();
             }
         };
 

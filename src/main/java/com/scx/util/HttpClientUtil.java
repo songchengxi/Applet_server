@@ -55,7 +55,7 @@ public class HttpClientUtil {
         HttpEntity entity = response.getEntity();
         if (entity != null) {
             String returnStr = EntityUtils.toString(entity, "utf-8");
-            log.info("解析结果:" + returnStr);
+//            log.info("解析结果:" + returnStr);
             return returnStr;
         } else {
             log.info("解析结果为空");
