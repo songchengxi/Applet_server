@@ -21,9 +21,9 @@ import java.util.regex.Pattern;
  * 获取数据
  */
 @Component
-public class TrafficGetInfo {
+public class TrafficTask {
 
-    private final static Logger log = LoggerFactory.getLogger(TrafficGetInfo.class);
+    private final static Logger log = LoggerFactory.getLogger(TrafficTask.class);
 
     @Autowired
     private TrafficRepository trafficRepository;
@@ -109,6 +109,9 @@ public class TrafficGetInfo {
             result = client.getResult(url, "GET");
             document = Jsoup.parse(result);
             scrollDiv = document.getElementById("scrollDiv");
+        }
+        if (scrollDiv == null) {
+            return;
         }
         Elements a = scrollDiv.getElementsByTag("a");
 

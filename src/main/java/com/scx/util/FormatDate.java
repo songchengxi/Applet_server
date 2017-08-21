@@ -1,6 +1,6 @@
 package com.scx.util;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -19,6 +19,11 @@ public class FormatDate {
 
     private static String defaultDatePattern = "yyyy-MM-dd HH:mm:ss";
 
+    public static String formatDateToStr(){
+        DateFormat format = new SimpleDateFormat(defaultDatePattern);
+        return format.format(new Date());
+    }
+
     /**
      * 将微信消息中的CreateTime转换成标准格式时间（yyyy-MM-dd HH:mm:ss）
      */
@@ -33,7 +38,7 @@ public class FormatDate {
      * 使用参数Format将字符串转为Date
      */
     public static Date parse(String strDate, String pattern) throws ParseException {
-        return StringUtils.isBlank(strDate) ? null : new SimpleDateFormat(pattern).parse(strDate);
+        return StringUtils.isEmpty(strDate) ? null : new SimpleDateFormat(pattern).parse(strDate);
     }
 
     /**

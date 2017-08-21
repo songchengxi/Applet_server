@@ -49,8 +49,7 @@ public class HttpClientUtil {
         int statusCode = response.getStatusLine().getStatusCode();//状态码
         log.info("请求状态:" + statusCode);
         if (statusCode != 200) {
-            String error = statusCode + "";
-            log.error(url + "请求错误，错误编码：" + error);
+            log.error(url + "请求错误，错误编码：" + statusCode);
         }
         HttpEntity entity = response.getEntity();
         if (entity != null) {
