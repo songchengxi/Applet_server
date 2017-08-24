@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface TrafficRepository extends JpaRepository<Traffic, String>, JpaSpecificationExecutor<Traffic> {
 
+    Traffic findOneByInfo(String text);
 }

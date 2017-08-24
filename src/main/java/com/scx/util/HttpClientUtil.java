@@ -53,8 +53,14 @@ public class HttpClientUtil {
         }
         HttpEntity entity = response.getEntity();
         if (entity != null) {
-            String returnStr = EntityUtils.toString(entity, "utf-8");
-//            log.info("解析结果:" + returnStr);
+            String returnStr;
+            try {
+                returnStr = EntityUtils.toString(entity, "utf-8");
+//                log.info("解析结果:" + returnStr);
+            } catch (Exception e) {
+                log.info("EntityUtils.toString()error====" + e.getMessage());
+                returnStr = "请求失败";
+            }
             return returnStr;
         } else {
             log.info("解析结果为空");

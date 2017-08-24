@@ -2,6 +2,7 @@ package com.scx.applet.timetask;
 
 import com.scx.applet.model.Traffic;
 import com.scx.applet.repository.TrafficRepository;
+import com.scx.applet.timetask.traffic.Jiangsu;
 import com.scx.util.HttpClientUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,6 +28,8 @@ public class TrafficTask {
 
     @Autowired
     private TrafficRepository trafficRepository;
+    @Autowired
+    private Jiangsu jiangsu;
 
     private static String result;
     private static Document document;
@@ -37,6 +40,7 @@ public class TrafficTask {
     public void getInfo() throws IOException {
         getShanxiTraffic();
         getHeibeiTraffic();
+        jiangsu.getTraffic();
     }
 
     @Scheduled(cron = "0 0/30 0-6 * * ?")
@@ -137,7 +141,14 @@ public class TrafficTask {
             while (matcher.find()) {
                 t.setTime(matcher.group());
             }
-            t.setInfo(e.text().split("【")[0]);
+            url = "http://www.hb96122.com/tiAction.do?method=trafficInfo&aiId=" + id;
+            result = client.getResult(url, "GET");
+            document = Jsoup.parse(result);
+            Elements comm = document.getElementsByClass("comm");
+            String text = comm.get(3).text();
+            t.setName(text + comm.get(1).text());
+            Element copyText = document.getElementById("copyText");
+            t.setInfo(text + copyText.val());
 
             Matcher typeM = typeP.matcher(e.text());
             while (typeM.find()) {
