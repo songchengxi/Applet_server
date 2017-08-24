@@ -29,7 +29,6 @@ public class Jiangsu {
 
     public void getTraffic() throws IOException {
         HttpClientUtil httpClient = new HttpClientUtil();
-        url = "http://www.js96777.com/pubService/conditionList.htm";
         result = httpClient.getResult(url, "get");
         document = Jsoup.parse(result);
         trs = document.getElementsByTag("table").get(1).getElementsByTag("tr");
@@ -44,7 +43,7 @@ public class Jiangsu {
                 t.setCity("32");
                 t.setName(td.get(1).text());
                 t.setType(td.get(2).text());
-                t.setTime(td.get(5).text());
+                t.setTime(td.get(5).text() + ":00");
                 t.setInfo(td.get(6).text());
                 try {
                     trafficRepository.save(t);

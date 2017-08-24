@@ -1,5 +1,6 @@
 package com.scx.applet.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.scx.applet.dao.TrafficDao;
 import com.scx.applet.model.Traffic;
 import com.scx.applet.repository.TrafficRepository;
@@ -38,6 +39,18 @@ public class TrafficController {
     @GetMapping("/index")
     public String index() {
         return "/traffic/list";
+    }
+
+    /**
+     * 当前支持城市
+     */
+    @PostMapping("/getSupportCity")
+    @ResponseBody
+    public Object getSupportCity() {
+        String city = "{\"city\":[{\"code\":\"14\",\"name\":\"山西\"}," +
+                "{\"code\":\"13\",\"name\":\"河北\"}," +
+                "{\"code\":\"32\",\"name\":\"江苏\"}]}";
+        return JSONArray.parse(city);
     }
 
     /**

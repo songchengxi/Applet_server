@@ -2,6 +2,7 @@ package com.scx.applet.timetask;
 
 import com.scx.applet.model.Traffic;
 import com.scx.applet.repository.TrafficRepository;
+import com.scx.applet.timetask.traffic.Hubei;
 import com.scx.applet.timetask.traffic.Jiangsu;
 import com.scx.util.HttpClientUtil;
 import org.jsoup.Jsoup;
@@ -30,6 +31,8 @@ public class TrafficTask {
     private TrafficRepository trafficRepository;
     @Autowired
     private Jiangsu jiangsu;
+    @Autowired
+    private Hubei hubei;
 
     private static String result;
     private static Document document;
@@ -41,6 +44,7 @@ public class TrafficTask {
         getShanxiTraffic();
         getHeibeiTraffic();
         jiangsu.getTraffic();
+        hubei.getTraffic();
     }
 
     @Scheduled(cron = "0 0/30 0-6 * * ?")
@@ -85,7 +89,12 @@ public class TrafficTask {
             t.setCity("14");
             t.setType(attr);
             t.setTime(e.getElementsByTag("span").get(0).text());
-            t.setInfo(e.text().substring(20));
+            String info = e.text().substring(20);
+            t.setInfo(info);
+            if (info.startsWith("G") || info.startsWith("S")) {
+                String[] name = info.split("高速");
+                t.setName(name[0] + "高速");
+            }
             try {
                 trafficRepository.save(t);
                 count++;
@@ -146,7 +155,7 @@ public class TrafficTask {
             document = Jsoup.parse(result);
             Elements comm = document.getElementsByClass("comm");
             String text = comm.get(3).text();
-            t.setName(text + comm.get(1).text());
+            t.setName(text + comm.get(1).text().split("高速")[0] + "高速");
             Element copyText = document.getElementById("copyText");
             t.setInfo(text + copyText.val());
 
