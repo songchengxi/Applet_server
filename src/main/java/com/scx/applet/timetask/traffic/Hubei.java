@@ -31,7 +31,7 @@ public class Hubei {
         JSONArray planWork = jsonObject.getJSONArray("planWork");
         for (int i = 0; i < planWork.size(); i++) {
             JSONObject o = (JSONObject) planWork.get(i);
-            Traffic one = trafficRepository.findOne(o.getString("eventid"));
+            Traffic one = trafficRepository.findOneByInfo(o.getString("reportout"));
             if (one == null) {
                 count++;
                 Traffic t = new Traffic();
@@ -52,7 +52,7 @@ public class Hubei {
         JSONArray roadEvent = jsonObject.getJSONArray("roadEvent");
         for (int i = 0; i < roadEvent.size(); i++) {
             JSONObject o = (JSONObject) roadEvent.get(i);
-            Traffic one = trafficRepository.findOne(o.getString("eventid"));
+            Traffic one = trafficRepository.findOneByInfo(o.getString("reportout"));
             if (one == null) {
                 count++;
                 Traffic t = new Traffic();

@@ -4,6 +4,7 @@ import com.scx.applet.model.Traffic;
 import com.scx.applet.repository.TrafficRepository;
 import com.scx.applet.timetask.traffic.Hubei;
 import com.scx.applet.timetask.traffic.Jiangsu;
+import com.scx.applet.timetask.traffic.Shanxi;
 import com.scx.util.HttpClientUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -33,6 +34,8 @@ public class TrafficTask {
     private Jiangsu jiangsu;
     @Autowired
     private Hubei hubei;
+    @Autowired
+    private Shanxi shanxi;
 
     private static String result;
     private static Document document;
@@ -45,6 +48,7 @@ public class TrafficTask {
         getHeibeiTraffic();
         jiangsu.getTraffic();
         hubei.getTraffic();
+        shanxi.getTraffic();
     }
 
     @Scheduled(cron = "0 0/30 0-6 * * ?")

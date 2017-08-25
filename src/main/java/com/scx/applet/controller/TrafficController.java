@@ -49,7 +49,9 @@ public class TrafficController {
     public Object getSupportCity() {
         String city = "{\"city\":[{\"code\":\"14\",\"name\":\"山西\"}," +
                 "{\"code\":\"13\",\"name\":\"河北\"}," +
-                "{\"code\":\"32\",\"name\":\"江苏\"}]}";
+                "{\"code\":\"61\",\"name\":\"陕西\"}," +
+                "{\"code\":\"32\",\"name\":\"江苏\"}," +
+                "{\"code\":\"42\",\"name\":\"湖北\"}]}";
         return JSONArray.parse(city);
     }
 
@@ -77,9 +79,11 @@ public class TrafficController {
         };
 
         Page<Traffic> all = trafficRepository.findAll(spec, pageable);
-        List<Traffic> content = all.getContent();
-        for (Traffic t : content) {
-            t.setTime(FormatDate.fromToday(t.getTime()));
+        if (!"32".equals(cityId)) {
+            List<Traffic> content = all.getContent();
+            for (Traffic t : content) {
+                t.setTime(FormatDate.fromToday(t.getTime()));
+            }
         }
         return all;
     }
