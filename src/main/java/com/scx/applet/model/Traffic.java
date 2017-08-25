@@ -17,13 +17,13 @@ public class Traffic implements Serializable{
     @Column(name = "name", length = 50)
     public String name;
 
-    @Column(name = "type", length = 20)
+    @Column(name = "type", length = 50)
     public String type;//1：事故；2：拥堵；3：管制、施工；4：封闭；5：缓慢
 
     @Column(name = "time", length = 20)
     public String time;
 
-    @Column(name = "info", length = 300)
+    @Column(name = "info", length = 1000)
     public String info;
 
     public String getName() {

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @Component
 public class Hubei {
@@ -35,7 +36,7 @@ public class Hubei {
             if (one == null) {
                 count++;
                 Traffic t = new Traffic();
-                t.setId(o.getString("eventid"));
+                t.setId(UUID.randomUUID().toString().replaceAll("-",""));
                 t.setCity("42");
                 t.setType("施工养护");
                 if (o.getString("title").contains("（")){
@@ -56,7 +57,7 @@ public class Hubei {
             if (one == null) {
                 count++;
                 Traffic t = new Traffic();
-                t.setId(o.getString("eventid"));
+                t.setId(UUID.randomUUID().toString().replaceAll("-",""));
                 t.setCity("42");
                 t.setType("事故、施工");
                 if (o.getString("title").contains("（")){

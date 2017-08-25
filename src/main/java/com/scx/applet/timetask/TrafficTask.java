@@ -3,6 +3,7 @@ package com.scx.applet.timetask;
 import com.scx.applet.model.Traffic;
 import com.scx.applet.repository.TrafficRepository;
 import com.scx.applet.timetask.traffic.Hubei;
+import com.scx.applet.timetask.traffic.Hunan;
 import com.scx.applet.timetask.traffic.Jiangsu;
 import com.scx.applet.timetask.traffic.Shanxi;
 import com.scx.util.HttpClientUtil;
@@ -36,6 +37,8 @@ public class TrafficTask {
     private Hubei hubei;
     @Autowired
     private Shanxi shanxi;
+    @Autowired
+    private Hunan hunan;
 
     private static String result;
     private static Document document;
@@ -49,6 +52,7 @@ public class TrafficTask {
         jiangsu.getTraffic();
         hubei.getTraffic();
         shanxi.getTraffic();
+        hunan.getTraffic();
     }
 
     @Scheduled(cron = "0 0/30 0-6 * * ?")
