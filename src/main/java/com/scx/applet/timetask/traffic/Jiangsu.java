@@ -28,8 +28,7 @@ public class Jiangsu {
     private static Elements trs;
 
     public void getTraffic() throws IOException {
-        HttpClientUtil httpClient = new HttpClientUtil();
-        result = httpClient.getResult(url, "get");
+        result = HttpClientUtil.getResult(url, "get");
         document = Jsoup.parse(result);
         trs = document.getElementsByTag("table").get(1).getElementsByTag("tr");
 

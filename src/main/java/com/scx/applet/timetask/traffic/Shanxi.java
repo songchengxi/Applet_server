@@ -30,8 +30,7 @@ public class Shanxi {
     private static JSONArray data;
 
     public void getTraffic() throws IOException {
-        HttpClientUtil client = new HttpClientUtil();
-        result = client.getResult(url, "GET");
+        result = HttpClientUtil.getResult(url, "GET");
         jsonObject = JSONObject.parseObject(result);
         data = jsonObject.getJSONArray("data");
         int count = 0;

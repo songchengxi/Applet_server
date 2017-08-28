@@ -18,13 +18,9 @@ public class HttpClientUtil {
 
     private static final Logger log = LoggerFactory.getLogger(HttpClientUtil.class);
 
-    private HttpClient client;
+    private static HttpClient client = HttpClientBuilder.create().build();
 
-    public HttpClientUtil() {
-        client = HttpClientBuilder.create().build();
-    }
-
-    public String getResult(String url, String method) throws IOException {
+    public static String getResult(String url, String method) throws IOException {
         log.info("解析地址:" + url);
         HttpRequestBase base;
         if ("post".equals(method) || "POST".equals(method)) {

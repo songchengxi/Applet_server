@@ -51,6 +51,7 @@ public class TrafficController {
                 "{\"code\":\"13\",\"name\":\"河北\"}," +
                 "{\"code\":\"61\",\"name\":\"陕西\"}," +
                 "{\"code\":\"32\",\"name\":\"江苏\"}," +
+                "{\"code\":\"33\",\"name\":\"浙江\"}," +
                 "{\"code\":\"43\",\"name\":\"湖南\"}," +
                 "{\"code\":\"42\",\"name\":\"湖北\"}]}";
         return JSONArray.parse(city);

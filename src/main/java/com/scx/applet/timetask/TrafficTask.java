@@ -2,10 +2,7 @@ package com.scx.applet.timetask;
 
 import com.scx.applet.model.Traffic;
 import com.scx.applet.repository.TrafficRepository;
-import com.scx.applet.timetask.traffic.Hubei;
-import com.scx.applet.timetask.traffic.Hunan;
-import com.scx.applet.timetask.traffic.Jiangsu;
-import com.scx.applet.timetask.traffic.Shanxi;
+import com.scx.applet.timetask.traffic.*;
 import com.scx.util.HttpClientUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -39,6 +36,8 @@ public class TrafficTask {
     private Shanxi shanxi;
     @Autowired
     private Hunan hunan;
+    @Autowired
+    private Zhejiang zhejiang;
 
     private static String result;
     private static Document document;
@@ -53,6 +52,7 @@ public class TrafficTask {
         hubei.getTraffic();
         shanxi.getTraffic();
         hunan.getTraffic();
+        zhejiang.getTraffic();
     }
 
     @Scheduled(cron = "0 0/30 0-6 * * ?")
@@ -64,9 +64,8 @@ public class TrafficTask {
      * 山西信息
      */
     public void getShanxiTraffic() throws IOException {
-        HttpClientUtil httpClient = new HttpClientUtil();
         String url = "http://www.sxgajj.gov.cn/web/index.php/map/index.html";
-        result = httpClient.getResult(url, "get");
+        result = HttpClientUtil.getResult(url, "get");
         document = Jsoup.parse(result);
         paging = document.getElementsByClass("paging");
         if (paging.size() <= 0) {
@@ -121,13 +120,12 @@ public class TrafficTask {
      * 河北信息
      */
     public void getHeibeiTraffic() throws IOException {
-        HttpClientUtil client = new HttpClientUtil();
         String url = "http://www.hb96122.com/indexAction.do?method=index";
-        result = client.getResult(url, "GET");
+        result = HttpClientUtil.getResult(url, "GET");
         document = Jsoup.parse(result);
         scrollDiv = document.getElementById("scrollDiv");
         if (scrollDiv == null) {
-            result = client.getResult(url, "GET");
+            result = HttpClientUtil.getResult(url, "GET");
             document = Jsoup.parse(result);
             scrollDiv = document.getElementById("scrollDiv");
         }
@@ -159,7 +157,7 @@ public class TrafficTask {
                 t.setTime(matcher.group());
             }
             url = "http://www.hb96122.com/tiAction.do?method=trafficInfo&aiId=" + id;
-            result = client.getResult(url, "GET");
+            result = HttpClientUtil.getResult(url, "GET");
             document = Jsoup.parse(result);
             Elements comm = document.getElementsByClass("comm");
             String text = comm.get(3).text();

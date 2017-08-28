@@ -25,8 +25,7 @@ public class Hubei {
     private static String result;
 
     public void getTraffic() throws IOException {
-        HttpClientUtil client = new HttpClientUtil();
-        result = client.getResult(url, "POST");
+        result = HttpClientUtil.getResult(url, "POST");
         JSONObject jsonObject = JSONObject.parseObject(result);
         int count = 0;
         JSONArray planWork = jsonObject.getJSONArray("planWork");
