@@ -42,6 +42,8 @@ public class TrafficTask {
     private Jiangxi jiangxi;
     @Autowired
     private Sichuan sichuan;
+    @Autowired
+    private Anhui anhui;
 
     private static String result;
     private static Document document;
@@ -59,6 +61,7 @@ public class TrafficTask {
         zhejiang.getTraffic();
         jiangxi.getTraffic();
         sichuan.getTraffic();
+        anhui.getTraffic();
     }
 
     @Scheduled(cron = "0 0/30 0-6 * * ?")

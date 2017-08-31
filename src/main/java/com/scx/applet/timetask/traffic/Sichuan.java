@@ -49,7 +49,6 @@ public class Sichuan {
                     t.setType(typeM.group());
                 }
                 t.setInfo(des);
-                System.out.println(t);
                 trafficRepository.save(t);
                 count++;
             }
