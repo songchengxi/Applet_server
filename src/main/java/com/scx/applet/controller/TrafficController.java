@@ -94,6 +94,27 @@ public class TrafficController {
     }
 
     /**
+     * 模糊搜索
+     */
+    @PostMapping("/findByName")
+    @ResponseBody
+    public Page<Traffic> findByName(int page, final String name) throws ParseException {
+        Pageable pageable = new PageRequest(page, 10, new Sort(Sort.Direction.DESC, "time"));
+        Specification<Traffic> spec = new Specification<Traffic>() {
+            @Override
+            public Predicate toPredicate(Root<Traffic> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return query.where(cb.like(root.get("name").as(String.class), "%" + name + "%")).getRestriction();
+            }
+        };
+        Page<Traffic> all = trafficRepository.findAll(spec, pageable);
+        List<Traffic> content = all.getContent();
+        for (Traffic t : content) {
+            t.setTime(FormatDate.fromToday(t.getTime()));
+        }
+        return all;
+    }
+
+    /**
      * 获取对象
      */
     @PostMapping("/get")

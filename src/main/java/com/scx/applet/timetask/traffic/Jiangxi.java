@@ -46,6 +46,7 @@ public class Jiangxi {
                     t.setCity("36");
                     t.setType("事故");
                     t.setName(info.split("高速")[0] + "高速");
+                    //TODO
                     t.setTime(j.getString("F_CR_FABSJ").replaceAll("/", "-"));
                     t.setInfo(info);
                     trafficRepository.save(t);
