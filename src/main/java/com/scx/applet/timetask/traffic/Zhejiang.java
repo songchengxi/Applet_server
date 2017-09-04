@@ -22,13 +22,14 @@ public class Zhejiang {
     @Autowired
     private TrafficRepository trafficRepository;
 
-    private static final String URL = "http://www.zjetc.cn/Module/Handles/HandAshx/commonAshx.ashx?strFlag=timeRoad";
+//    private static final String URL = "http://www.zjetc.cn/Module/Handles/HandAshx/commonAshx.ashx?strFlag=timeRoad";
+    private static final String URL = "http://gzcx.zjt.gov.cn/AjaxProxy/GetTrafficInfo.ashx";
     private static String result;
     private static JSONArray array;
 
     public void getTraffic() throws IOException {
         result = HttpClientUtil.getResult(URL, "GET");
-        array = JSONObject.parseArray(result);
+        array = JSONObject.parseObject(result).getJSONArray("rows");
         int count = 0;
         for (Object anArray : array) {
             JSONObject j = (JSONObject) anArray;

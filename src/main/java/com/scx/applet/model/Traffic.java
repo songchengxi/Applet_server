@@ -14,7 +14,7 @@ public class Traffic implements Serializable{
     @Column(name = "city",length = 2)
     public String city;//城市
 
-    @Column(name = "name", length = 50)
+    @Column(name = "name", length = 100)
     public String name;
 
     @Column(name = "type", length = 50)
