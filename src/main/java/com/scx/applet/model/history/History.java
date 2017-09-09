@@ -1,5 +1,4 @@
-package com.scx.applet.model;
-
+package com.scx.applet.model.history;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,8 +17,8 @@ public class History implements Serializable {
     @Column(name = "id", length = 3)
     public String id;
 
-    @Column(name = "name", length = 20)
-    public String name;
+    @Column(name = "dynasty", length = 20)
+    public String dynasty;
 
     @Column(name = "time", length = 20)
     public String time;
@@ -33,12 +32,6 @@ public class History implements Serializable {
     @Column(name = "founder", length = 20)
     public String founder;//建立者
 
-    @Column(name = "introduction", length = 300)
-    public String introduction;//简介
-
-    @Column(name = "territory", length = 50)
-    public String territory;//疆域
-
     public String getId() {
         return id;
     }
@@ -47,12 +40,12 @@ public class History implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDynasty() {
+        return dynasty;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDynasty(String dynasty) {
+        this.dynasty = dynasty;
     }
 
     public String getTime() {
@@ -87,33 +80,15 @@ public class History implements Serializable {
         this.founder = founder;
     }
 
-    public String getIntroduction() {
-        return introduction;
-    }
-
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
-    }
-
-    public String getTerritory() {
-        return territory;
-    }
-
-    public void setTerritory(String territory) {
-        this.territory = territory;
-    }
-
     @Override
     public String toString() {
         return "History{" +
                 "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                ", dynasty='" + dynasty + '\'' +
                 ", time='" + time + '\'' +
                 ", capital='" + capital + '\'' +
                 ", capitalNow='" + capitalNow + '\'' +
                 ", founder='" + founder + '\'' +
-                ", introduction='" + introduction + '\'' +
-                ", territory='" + territory + '\'' +
                 '}';
     }
 }

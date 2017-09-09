@@ -1,6 +1,6 @@
-package com.scx.applet.repository;
+package com.scx.applet.repository.history;
 
-import com.scx.applet.model.History;
+import com.scx.applet.model.history.History;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
