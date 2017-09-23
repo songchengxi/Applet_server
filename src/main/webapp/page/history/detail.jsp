@@ -53,7 +53,7 @@
 
 <h3>疆域：</h3>
 <textarea ng-model="data.territory" cols="70" rows="10"></textarea>
-<input type="button" value="保存" ng-click="save()"/>
+<%--<input type="button" value="保存" ng-click="save()"/>--%>
 <br/>
 <br/>
 <div>{{responseBody}}</div>

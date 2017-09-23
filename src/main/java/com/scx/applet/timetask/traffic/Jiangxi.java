@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 @Component
@@ -25,6 +28,8 @@ public class Jiangxi {
     private static String result;
     private static JSONObject jsonObject;
     private static JSONArray data;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public void getTraffic() throws IOException {
         result = HttpClientUtil.getResult(URL, "GET");
@@ -46,8 +51,14 @@ public class Jiangxi {
                     t.setCity("36");
                     t.setType("事故");
                     t.setName(info.split("高速")[0] + "高速");
-                    //TODO
-                    t.setTime(j.getString("F_CR_FABSJ").replaceAll("/", "-"));
+                    Date date = null;
+                    try {
+                        date = sdf.parse(j.getString("F_CR_FABSJ").replaceAll("/", "-"));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        log.error("时间格式转换异常{}", e);
+                    }
+                    t.setTime(sdf.format(date));
                     t.setInfo(info);
                     trafficRepository.save(t);
                     count++;

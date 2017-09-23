@@ -124,8 +124,8 @@
 <div>{{responseBody}}</div>
 <br/>
 <h3>帝王信息：</h3>
-<input type="button" value="添加" ng-click="add()"/>
-<input type="button" value="保存" ng-click="save()"/>
+<%--<input type="button" value="添加" ng-click="add()"/>--%>
+<%--<input type="button" value="保存" ng-click="save()"/>--%>
 <table cellspacing="1" style="background-color: #a0c6e5">
     <tr>
         <td>ID：</td>
@@ -151,8 +151,8 @@
     </tr>
     <tr ng-repeat="row in rows" bgcolor='#F4FAFF'>
         <td>
-            <input ng-click="edit(row.id)" value="编辑" type="button"/>
-            <input ng-click="del(row.id)" value="删除" type="button"/>
+            <%--<input ng-click="edit(row.id)" value="编辑" type="button"/>--%>
+            <%--<input ng-click="del(row.id)" value="删除" type="button"/>--%>
         </td>
         <td>{{row.id}}</td>
         <td>{{row.dynasty}}</td>
